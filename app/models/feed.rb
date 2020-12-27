@@ -27,4 +27,10 @@ class Feed < ActiveRecord::Base
   def status!(status_name)
 
   end
+
+  def fetch
+    fetcher=FeedFetcher.new(self)
+    fetcher.run
+
+  end
 end

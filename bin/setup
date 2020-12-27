@@ -10,7 +10,7 @@ end
 
 FileUtils.chdir APP_ROOT do
   puts "\n== Preparing database =="
-  system! 'bundle exec rails db:create'
+  system! 'bundle exec rails db:prepare'
   system! 'bundle exec rails db:migrate'
   system! 'bundle exec rake db:seed_fu'
   puts "\n== Removing old logs and tempfiles =="

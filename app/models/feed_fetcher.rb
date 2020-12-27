@@ -12,10 +12,18 @@ class FeedFetcher
     @succeeded=0
   end
 
+  def run
+    fetch
+    new_entries.each do |story|
+      story.save!
+    end
+
+  end
   def fetch
       @body ||= open(@feed.url)
       #https://www.ruby-toolbox.com/projects/simple-rss
       @raw_feed = SimpleRSS.parse(@body)
+      self
   end
 
   def parse
@@ -32,14 +40,30 @@ class FeedFetcher
     @feed.status!(:green)
   end
 
+  def entries
+    @entries ||= raw_feed.entries.map do |raw_entry|
+      Story.new(
+        title: raw_entry.title,
+        permalink: raw_entry.link,
+        entry_id: (raw_entry.guid || raw_entry.id),
+        body: (raw_entry.description || raw_entry.summary),
+        published: (raw_entry.pubDate || raw_entry.updated),
+        feed: @feed
+      )
+    end
+  end
+
   def modified?
-    raw_feed.last_modified && raw_feed.last_modified > @feed.last_fetched_at
+    time =  raw_feed.pubDate rescue raw_feed.updated
+    time > @feed.last_fetched_at
   end
 
   def new_entries
-    finder = NewStoriesFinder.new(raw_feed, @feed.last_fetched_at, @feed.latest_entry_id)
-    finder.new_stories
+    return [] unless modified?
+    byebug
+    scraped_entry_ids=entries.map(&:entry_id)
+    existing_entry_ids= Story.where(feed_id: @feed.id, entry_id: scraped_entry_ids).pluck("entry_id")
+    entries.reject do |s| existing_entry_ids.include?(s.entry_id) end
   end
-
 
 end

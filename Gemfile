@@ -9,6 +9,9 @@ gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'bootsnap', '>= 1.4.4', require: false
 
+gem 'seed-fu'
+gem 'delayed_job_active_record'
+
 gem "attribute_normalizer" #, "0.3.1"
 
 # graphiti
@@ -18,7 +21,7 @@ gem 'vandal_ui'
 gem 'kaminari', '~> 1.1'
 gem 'responders', '~> 3.0'
 gem 'bcrypt-ruby'
-gem 'seed-fu'
+
 
 gem 'rack-cors', require: 'rack/cors'
 gem 'jwt'

@@ -1,7 +1,7 @@
 version: "3.2"
 services:
   tester:
-    image: fxnet/fxnet-rss-reader:202012272104    
+    image: fxnet/fxnet-rss-reader:202012272243    
     build:
       context: ..
 
