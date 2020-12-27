@@ -20,8 +20,8 @@ ENV APP_DIR=/code
 
 WORKDIR $APP_DIR
 ADD Gemfile $APP_DIR
-#ADD Gemfile.lock $APP_DIR
-#RUN bundle
+ADD Gemfile.lock $APP_DIR
+RUN bundle
 
 ADD . $APP_DIR
 

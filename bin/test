@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+def run(command, exit_on_error=true)
+  puts "running: #{command}"
+  system(command, out: $stdout, err: :out)
+  exit_status=$?.exitstatus
+  if exit_status.nonzero? && exit_on_error
+    exit(exit_status)
+  end
+  exit_status
+end
+
+puts 'setting up test and running rspec'
+sleep 5 #wait for postgresql to start
+
+unless ENV["TEST_NODB"]
+  run('bin/setup') 
+end
+
+if ENV["TEST_INTERACTIVE"]
+  run('bundle exec guard')
+elsif ENV["TEST_BASH"]
+  run('/bin/bash')
+else
+  run("bundle exec rspec --colour --tty #{ARGV.join(' ')}")
+end  
+
+exit(0)

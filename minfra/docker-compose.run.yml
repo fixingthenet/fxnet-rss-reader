@@ -1,0 +1,25 @@
+version: "3.2"
+services:
+  tester:
+    image: fxnet/fxnet-rss-reader:202012272104    
+    build:
+      context: ..
+
+    depends_on:
+      - fxnet-rss-reader-db
+    environment:
+      - RAILS_ENV=test
+      - DATABASE_URL=postgres://test:test@fxnet-rss-reader-db/testdb?pool=5
+      - HOST=fxnet-rss-reader-test.fixingthe.net
+      - BASE_DOMAIN=fxnet-rss-reader-test.fixingthe.net
+      - TEST_INTERACTIVE=true
+      
+    volumes:
+      - ..:/code
+    command:
+      "bin/run_tests"
+  fxnet-rss-reader-db:
+    image: postgres:9.6
+    environment:
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test

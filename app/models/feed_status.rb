@@ -11,12 +11,12 @@ class FeedStatus < ActiveRecord::Base
   self.table_name="feed_status"
 
   def self.red
-    @red ||= FeedStatus.find_by(name: 'red') || raise("db seeded")
+    @red ||= (FeedStatus.find_by(name: 'red') || raise("no db seeded"))
   end
   def self.yellow
-    @yellow ||= FeedStatus.find_by(name: 'yellow') || raise("db seeded")
+    @yellow ||= (FeedStatus.find_by(name: 'yellow') || raise("no db seeded"))
   end
   def self.green
-    @green ||= FeedStatus.find_by(name: 'green') || raise("db seeded")
+    @green ||= (FeedStatus.find_by(name: 'green') || raise("no db seeded"))
   end
 end
