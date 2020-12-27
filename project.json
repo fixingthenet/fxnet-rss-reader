@@ -1,0 +1,10 @@
+{
+  "project": "fxnet-rss-reader",
+    
+  "git": "github.com/fixingthenet/fxnet-rss-reader",
+  "path": "fxnet-rss-reader",
+  "docker": {
+    "repo": "fxnet",
+    "name": "fxnet_rss_reader"
+  }
+}
