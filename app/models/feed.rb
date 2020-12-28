@@ -31,6 +31,17 @@ class Feed < ActiveRecord::Base
   def fetch
     fetcher=FeedFetcher.new(self)
     fetcher.run
-
+  end
+  def success!
+    self.last_success_at=Time.now
+    self.last_failed_count=0
+    self.last_success_count = (self.last_success_count || 0) + 1
+    self.save!
+  end
+  def fail!
+    self.last_failed_at=Time.now
+    self.last_success_count=0
+    self.last_failed_count = (self.last_failed_count || 0) + 1
+    self.save!
   end
 end

@@ -12,8 +12,8 @@ gem 'rake','13.0.3'
 
 gem 'seed-fu'
 gem 'delayed_job_active_record'
-
-gem "attribute_normalizer" #, "0.3.1"
+gem 'daemons'
+gem 'attribute_normalizer'
 
 # graphiti
 gem 'graphiti'

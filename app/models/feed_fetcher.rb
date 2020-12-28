@@ -2,7 +2,7 @@ class FeedFetcher
 
   attr_reader :logger
   attr_reader :raw_feed
-
+  attr_reader :feed
   def initialize(feed, logger: Rails.logger, body: nil)
     @feed = feed
     @logger = logger
@@ -14,11 +14,15 @@ class FeedFetcher
 
   def run
     fetch
+    new_s = 0
     new_entries.each do |story|
+      new_s += 1
       story.save!
     end
-
+    feed.success!
+    new_s
   end
+
   def fetch
       @body ||= open(@feed.url)
       #https://www.ruby-toolbox.com/projects/simple-rss
@@ -60,7 +64,6 @@ class FeedFetcher
 
   def new_entries
     return [] unless modified?
-    byebug
     scraped_entry_ids=entries.map(&:entry_id)
     existing_entry_ids= Story.where(feed_id: @feed.id, entry_id: scraped_entry_ids).pluck("entry_id")
     entries.reject do |s| existing_entry_ids.include?(s.entry_id) end
