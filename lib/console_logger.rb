@@ -4,7 +4,7 @@ class ConsoleLogger < Logger
     super(STDOUT)
     STDOUT.sync=true
     self.formatter = proc do |severity, datetime, progname, msg|
-      "[#{severity}] #{msg}\n"
+      "#{datetime} [#{severity}] #{msg}\n"
     end
     self.log_level=ENV["LOGGING_LEVEL"] || 'debug'
   end

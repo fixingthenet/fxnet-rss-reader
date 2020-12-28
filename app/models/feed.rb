@@ -28,10 +28,13 @@ class Feed < ActiveRecord::Base
 
   end
 
+  #this is called by a script (delayed to be run in the background)
   def fetch
     fetcher=FeedFetcher.new(self)
-    fetcher.run
+    inserted=fetcher.run
+    logger.info("Feed: #{name} new stories: #{inserted}")
   end
+  
   def success!
     self.last_success_at=Time.now
     self.last_failed_count=0
