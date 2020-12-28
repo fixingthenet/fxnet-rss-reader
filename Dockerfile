@@ -14,6 +14,8 @@ RUN apt-get update -y && \
    joe \
    pkg-config
 
+ENV GEM_HOME=/usr/local/bundle/ruby/2.6.0/
+
 RUN gem install bundler
 
 ENV APP_DIR=/code

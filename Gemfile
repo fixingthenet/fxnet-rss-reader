@@ -8,6 +8,7 @@ gem 'rails', '~> 6.1.0'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'bootsnap', '>= 1.4.4', require: false
+gem 'rake','13.0.3'
 
 gem 'seed-fu'
 gem 'delayed_job_active_record'
@@ -21,7 +22,6 @@ gem 'vandal_ui'
 gem 'kaminari', '~> 1.1'
 gem 'responders', '~> 3.0'
 gem 'bcrypt-ruby'
-
 
 gem 'rack-cors', require: 'rack/cors'
 gem 'jwt'
