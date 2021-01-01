@@ -37,7 +37,8 @@ class Authenticator
   end
 
   def extract
-    return unless token
+    return
+    
     payload, info=JSON::JWT.decode token, :skip_verification
     config = ::OpenIDConnect::Discovery::Provider::Config.discover!(payload["iss"]) # cache this!
     public_key=config.jwks

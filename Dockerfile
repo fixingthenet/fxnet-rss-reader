@@ -15,7 +15,7 @@ RUN apt-get update -y && \
    pkg-config
 
 ENV GEM_HOME=/usr/local/bundle/ruby/2.6.0/
-
+ENV PATH=/usr/local/bundle/ruby/2.6.0/bin:$PATH
 RUN gem install bundler
 
 ENV APP_DIR=/code

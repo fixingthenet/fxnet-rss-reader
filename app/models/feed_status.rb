@@ -2,9 +2,9 @@
 #
 # Table name: feed_status
 #
-#  id    :integer          not null, primary key
-#  name  :string(255)      not null
-#  label :string(255)      not null
+#  id    :bigint           not null, primary key
+#  name  :string           not null
+#  label :string           not null
 #
 
 class FeedStatus < ActiveRecord::Base

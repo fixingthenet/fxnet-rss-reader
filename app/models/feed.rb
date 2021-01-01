@@ -2,13 +2,17 @@
 #
 # Table name: feeds
 #
-#  id              :integer          not null, primary key
-#  name            :string(255)      not null
-#  url             :text             not null
-#  last_fetched_at :datetime
-#  feed_status_id  :integer          not null
-#  created_at      :datetime
-#  updated_at      :datetime
+#  id                 :bigint           not null, primary key
+#  name               :string           not null
+#  url                :text             not null
+#  last_fetched_at    :datetime
+#  feed_status_id     :integer          not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  last_success_at    :datetime
+#  last_success_count :integer
+#  last_failed_count  :integer
+#  last_failed_at     :datetime
 #
 
 class Feed < ActiveRecord::Base

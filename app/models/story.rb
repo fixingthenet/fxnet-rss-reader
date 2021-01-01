@@ -2,18 +2,15 @@
 #
 # Table name: stories
 #
-#  id          :integer          not null, primary key
-#  title       :text
-#  permalink   :text
-#  body        :text
-#  entry_id    :text
-#  feed_id     :integer          not null
-#  published   :datetime
-#  is_read     :boolean          default(FALSE), not null
-#  is_starred  :boolean          default(FALSE), not null
-#  keep_unread :boolean          default(FALSE)
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id         :bigint           not null, primary key
+#  title      :text
+#  permalink  :text
+#  body       :text
+#  entry_id   :text
+#  feed_id    :integer          not null
+#  published  :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 class Story < ActiveRecord::Base

@@ -1,0 +1,2 @@
+class FeedStatusResource < ApplicationResource
+end
