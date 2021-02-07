@@ -17,6 +17,7 @@
 
 class Feed < ActiveRecord::Base
   has_many :stories, :dependent => :destroy
+  belongs_to :feed_status
   belongs_to :status, :class_name => 'FeedStatus', :foreign_key => 'feed_status_id'
 
   def latest_entry_id

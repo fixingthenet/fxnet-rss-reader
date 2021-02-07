@@ -1,5 +1,6 @@
 require 'open-uri'
 require 'console_logger'
+require 'fxnet/graphiti/controller'
 
 unless Rails.env.test?
   ActiveRecord::Base.logger=Rails.logger = ConsoleLogger.new

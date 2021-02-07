@@ -12,5 +12,5 @@ class FeedResource < ApplicationResource
   attribute :last_failed_at, :datetime, only: [:readable]
     
   belongs_to :feed_status
-  has_many :feed_subscriptions
+#  has_many :feed_subscriptions
 end
