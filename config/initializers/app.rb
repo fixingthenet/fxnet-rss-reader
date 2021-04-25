@@ -1,9 +1,13 @@
 require 'open-uri'
-require 'console_logger'
+require 'fxnet/console_logger'
 require 'fxnet/graphiti/controller'
 
+
 unless Rails.env.test?
-  ActiveRecord::Base.logger=Rails.logger = ConsoleLogger.new
+  ActionController::Base.logger = 
+  ActiveRecord::Base.logger = 
+  Rails.logger = 
+  Fxnet::ConsoleLogger.new
 end # during tests log to usual places (file), any other case log to the console
 
 
