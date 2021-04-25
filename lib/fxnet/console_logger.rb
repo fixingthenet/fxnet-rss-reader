@@ -1,8 +1,9 @@
-class ConsoleLogger < Logger
+module Fxnet
+  class ConsoleLogger < ::Logger
   def initialize(silencer: true)
     @silencer=silencer
     super(STDOUT)
-    STDOUT.sync=true
+    STDOUT.sync = true
     self.formatter = proc do |severity, datetime, progname, msg|
       "#{datetime} [#{severity}] #{msg}\n"
     end
@@ -29,4 +30,5 @@ class ConsoleLogger < Logger
   def log_level=(lvl)
     self.level = lvl
   end
+end
 end
