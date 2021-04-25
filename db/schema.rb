@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_01_150906) do
+ActiveRecord::Schema.define(version: 2021_02_29_052417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,38 @@ ActiveRecord::Schema.define(version: 2021_01_01_150906) do
     t.integer "last_failed_count"
     t.datetime "last_failed_at"
     t.index ["url"], name: "index_feeds_on_url", unique: true
+  end
+
+  create_table "oidc_open_ids", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "provider_id"
+    t.string "identifier"
+    t.string "access_token", limit: 2048
+    t.string "id_token", limit: 2048
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["provider_id"], name: "index_oidc_open_ids_on_provider_id"
+    t.index ["user_id"], name: "index_oidc_open_ids_on_user_id"
+  end
+
+  create_table "providers", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "issuer"
+    t.string "jwks_uri"
+    t.string "name"
+    t.string "identifier"
+    t.string "secret"
+    t.string "scopes_supported"
+    t.string "host"
+    t.string "scheme"
+    t.string "authorization_endpoint"
+    t.string "token_endpoint"
+    t.string "userinfo_endpoint"
+    t.boolean "dynamic", default: false
+    t.datetime "expires_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_providers_on_user_id"
   end
 
   create_table "stories", force: :cascade do |t|
