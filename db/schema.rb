@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_29_052417) do
+ActiveRecord::Schema.define(version: 2021_04_30_190311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,14 @@ ActiveRecord::Schema.define(version: 2021_02_29_052417) do
     t.index ["url"], name: "index_feeds_on_url", unique: true
   end
 
+  create_table "fxnet_app_configurations", force: :cascade do |t|
+    t.string "identifier"
+    t.jsonb "configuration"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["identifier"], name: "index_fxnet_app_configurations_on_identifier", unique: true
+  end
+
   create_table "oidc_open_ids", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "provider_id"
@@ -67,11 +75,10 @@ ActiveRecord::Schema.define(version: 2021_02_29_052417) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["provider_id"], name: "index_oidc_open_ids_on_provider_id"
-    t.index ["user_id"], name: "index_oidc_open_ids_on_user_id"
+    t.index ["user_id"], name: "index_oidc_open_ids_on_users_id"
   end
 
-  create_table "providers", force: :cascade do |t|
-    t.bigint "user_id"
+  create_table "oidc_providers", id: :bigint, default: -> { "nextval('providers_id_seq'::regclass)" }, force: :cascade do |t|
     t.string "issuer"
     t.string "jwks_uri"
     t.string "name"
@@ -87,7 +94,6 @@ ActiveRecord::Schema.define(version: 2021_02_29_052417) do
     t.datetime "expires_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_providers_on_user_id"
   end
 
   create_table "stories", force: :cascade do |t|

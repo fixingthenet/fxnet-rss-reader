@@ -121,13 +121,17 @@ class Provider < ActiveRecord::Base
       client_id: identifier,
       nonce: nonce
     )
-    open_id = self.open_ids.find_or_initialize_by(identifier: _id_token_.subject)
-    open_id.access_token, open_id.id_token = access_token.access_token, access_token.id_token
+    user(_id_token_)
+  end
+
+  def user(id_token)
+    open_id = self.open_ids.find_or_initialize_by(identifier: id_token.subject)
+    # open_id.access_token, open_id.id_token = access_token.access_token, access_token.id_token
     open_id.user ||= User.create!(open_id: open_id)
     open_id.save!
     open_id.user
   end
-
+  
   class << self
     def discover!(host)
       issuer = OpenIDConnect::Discovery::Provider.discover!(host).issuer

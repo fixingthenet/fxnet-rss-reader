@@ -1,4 +1,4 @@
-class StoriesController < ApplicationController
+class StoriesController < ApiController
   def index
     stories = StoryResource.all(params)
     respond_with(stories)

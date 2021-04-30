@@ -1,4 +1,4 @@
-class FeedsController < ApplicationController
+class FeedsController < ApiController
   def index
     feeds = FeedResource.all(params)
     respond_with(feeds)
