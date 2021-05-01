@@ -2,11 +2,6 @@ class ApiController < ActionController::API
   before_action :authenticate!
   include Fxnet::Graphiti::Controller
 
-  private
-
-  def authenticate!
-    current_user || raise(Fxnet::Errors::NotAuthenticated)
-  end
 
   def current_user
     return @current_user if defined?(@current_user)
@@ -32,4 +27,11 @@ class ApiController < ActionController::API
       @current_user = nil
     end
   end
+
+  private
+
+  def authenticate!
+    current_user || raise(Fxnet::Errors::NotAuthenticated)
+  end
+
 end

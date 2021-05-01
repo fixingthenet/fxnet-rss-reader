@@ -8,4 +8,5 @@ class ApplicationResource < Graphiti::Resource
   self.adapter = Graphiti::Adapters::ActiveRecord
   self.base_url = ENV["HOST"]
   self.endpoint_namespace = '/api/v1'
+  self.validate_endpoints = false
 end

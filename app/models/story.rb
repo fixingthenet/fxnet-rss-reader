@@ -15,18 +15,28 @@
 
 class Story < ActiveRecord::Base
   belongs_to :feed
-  has_many :user_opens
+  has_many :story_opens
+  belongs_to :story_open # this is fake for a 1:1 join for a user
+
   validates_uniqueness_of :entry_id, :scope => :feed_id
 
   attr_accessor :user_open
 
   scope :base, lambda { |the_user|
     includes(:feed)
-    .select('stories.*, user_opens.last_opened_at as last_opened_at, user_opens.read_later_at as read_later_at')
+    .select('stories.*, story_opens.last_opened_at as last_opened_at, story_opens.read_later_at as read_later_at, story_opens.id as story_open_id')
     .order("id desc")
-    .left_outer_joins(:user_opens)
-    .where(["user_opens.user_id=? or user_opens.user_id is null",the_user.id])
+    .left_outer_joins(:story_opens)
+    .where(["story_opens.user_id=? or story_opens.user_id is null",the_user.id])
   }
+
+  scope :bookmarked, lambda {
+    where('read_later_at is not null')
+  }
+  scope :unread, lambda {
+    where('last_opened_at is null')
+  }
+
   def self.create_from_raw(feed, entry)
     #might fail!
     Story.create(:feed => feed,
@@ -39,20 +49,6 @@ class Story < ActiveRecord::Base
                  :entry_id => entry.id)
 
   end
-
-  scope :xfilter, lambda { |filter, user|
-    if filter.read_later? || filter.unread?
-      sc=joins("LEFT JOIN user_opens ON stories.id=user_opens.story_id").where(["user_opens.user_id=?", user.id])
-
-      if filter.read_later?
-        sc=sc.where("user_opens.read_later_at is not null")
-      end
-      if filter.unread?
-        sc=sc.where("user_opens.last_opened_at is null")
-      end
-      sc
-    end
-  }
 
   def headline
     self.title.nil? ? UNTITLED : strip_html(self.title)[0, 100]

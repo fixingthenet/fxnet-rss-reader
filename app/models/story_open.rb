@@ -10,7 +10,6 @@
 #
 
 class StoryOpen < ActiveRecord::Base
-  self.table="user_opens"
   belongs_to :user
   belongs_to :story
 
