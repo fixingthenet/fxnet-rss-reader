@@ -10,9 +10,10 @@ end # during tests log to usual places (file), any other case log to the console
 
 Delayed::Worker.logger = Rails.logger
 
-#currently only supporting on OIdC IdP
-Rails.configuration.configuration_picker= ->(controller) {
-  Rails.configuration.cached_configuration ||=Fxnet::ApplicationConfiguration.find_by(identifier: 'fxnet')
+#currently only supporting one OIdC IdP
+Rails.configuration.cached_app_configuration = nil
+Rails.configuration.app_configuration_picker= ->(controller) {
+  Rails.configuration.cached_app_configuration ||= AppConfiguration.find(ENV['APP_CONFIGURATION_IDENTIFIER'])
 }
 
 #Delayed::Worker.destroy_failed_jobs = false

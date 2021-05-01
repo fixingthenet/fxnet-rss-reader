@@ -7,7 +7,7 @@ module Fxnet
         ctrl.include ::Graphiti::Rails::Responders
 #        ctrl.use Metoda::Graphiti::Middleware
         #Error handlers
-#        ctrl.register_exception Fxnet::Errors::NotAuthenticated, status: 401, detail: ->(ex) { ex.message }
+        ctrl.register_exception Fxnet::Errors::NotAuthenticated, status: 401, detail: ->(ex) { ex.message }
 #        ctrl.register_exception Fxnet::Errors::TokenNotFound, status: 403, detail: ->(ex) { ex.message }
 #        ctrl.register_exception Fxnet::Errors::CanNotCreate, status: 403, detail: ->(ex) { ex.message }
 #        ctrl.register_exception Fxnet::Errors::AttributeMissing, status: 422, detail: ->(ex) { ex.message }

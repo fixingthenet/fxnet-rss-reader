@@ -15,6 +15,13 @@ ActiveRecord::Schema.define(version: 2021_04_30_190311) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "app_configurations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.jsonb "configuration", default: {}, null: false
+    t.jsonb "secrets", default: {}, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
     t.integer "attempts", default: 0, null: false
@@ -56,14 +63,6 @@ ActiveRecord::Schema.define(version: 2021_04_30_190311) do
     t.integer "last_failed_count"
     t.datetime "last_failed_at"
     t.index ["url"], name: "index_feeds_on_url", unique: true
-  end
-
-  create_table "fxnet_app_configurations", force: :cascade do |t|
-    t.string "identifier"
-    t.jsonb "configuration"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["identifier"], name: "index_fxnet_app_configurations_on_identifier", unique: true
   end
 
   create_table "oidc_open_ids", force: :cascade do |t|

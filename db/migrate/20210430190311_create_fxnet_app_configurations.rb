@@ -1,11 +1,9 @@
 class CreateFxnetAppConfigurations < ActiveRecord::Migration[6.1]
   def change
-    create_table :app_configurations do |t|
-      t.string :identifier, null: false
-      t.jsonb :configuration, default: {}
-      t.jsonb :secrets, default: {}
+    create_table :app_configurations, id: :uuid do |t|
+      t.jsonb :configuration, default: {}, null: false
+      t.jsonb :secrets, default: {}, null: false
       t.timestamps
     end
-    add_index :app_configurations, :identifier, unique: true
   end
 end
