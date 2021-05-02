@@ -1,16 +1,16 @@
 class StoryResource < ApplicationResource
-  attribute :title, :string
-  attribute :permalink, :string
-  attribute :body, :string
-  attribute :entry_id, :string
-  attribute :feed_id, :integer
-  attribute :published,  :datetime
-  attribute :created_at, :datetime
-  attribute :updated_at, :datetime
+  attribute :title, :string, only: [:readable]
+  attribute :permalink, :string, only: [:readable]
+  attribute :body, :string, only: [:readable]
+  attribute :entry_id, :string, only: [:readable]
+  attribute :feed_id, :integer, only: [:readable]
+  attribute :published,  :datetime, only: [:readable]
+  attribute :created_at, :datetime, only: [:readable]
+  attribute :updated_at, :datetime, only: [:readable]
 
   # user specific join on StoryOpen
-  attribute :read_later_at, :datetime
-  attribute :last_opened_at, :datetime
+  attribute :read_later_at, :datetime, only: [:readable, :writable]
+  attribute :last_opened_at, :datetime, only: [:readable, :writable]
 
   belongs_to :feed
 
