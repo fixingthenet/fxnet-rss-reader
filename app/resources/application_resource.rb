@@ -9,4 +9,9 @@ class ApplicationResource < Graphiti::Resource
   self.base_url = ENV["HOST"]
   self.endpoint_namespace = '/api/v1'
   self.validate_endpoints = false
+
+  def current_user
+    @current_user ||= context.current_user
+  end
+
 end

@@ -18,12 +18,12 @@ class StoryOpen < ActiveRecord::Base
   end
 
   def open!
-    update_attributes!(:last_opened_at => Time.now)
+    update!(:last_opened_at => Time.now)
     self
   end
 
   def unopen!
-    update_attributes!(:last_opened_at => nil)
+    update!(:last_opened_at => nil)
     self
   end
 
@@ -45,12 +45,12 @@ class StoryOpen < ActiveRecord::Base
   end
 
   def read_later!
-    update_attributes!(:read_later_at => Time.now)
+    update!(:read_later_at => Time.now)
     self
   end
 
   def unread_later!
-    update_attributes!(:read_later_at => nil)
+    update!(:read_later_at => nil)
     self
   end
 

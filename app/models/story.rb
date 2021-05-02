@@ -16,7 +16,6 @@
 class Story < ActiveRecord::Base
   belongs_to :feed
   has_many :story_opens
-  belongs_to :story_open # this is fake for a 1:1 join for a user
 
   validates_uniqueness_of :entry_id, :scope => :feed_id
 
@@ -24,7 +23,7 @@ class Story < ActiveRecord::Base
 
   scope :base, lambda { |the_user|
     includes(:feed)
-    .select('stories.*, story_opens.last_opened_at as last_opened_at, story_opens.read_later_at as read_later_at, story_opens.id as story_open_id')
+    .select('stories.*, story_opens.last_opened_at as last_opened_at, story_opens.read_later_at as read_later_at')
     .order("id desc")
     .left_outer_joins(:story_opens)
     .where(["story_opens.user_id=? or story_opens.user_id is null",the_user.id])
