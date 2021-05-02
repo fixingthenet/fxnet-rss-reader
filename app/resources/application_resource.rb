@@ -14,4 +14,7 @@ class ApplicationResource < Graphiti::Resource
     @current_user ||= context.current_user
   end
 
+  def logger
+    Rails.logger
+  end
 end

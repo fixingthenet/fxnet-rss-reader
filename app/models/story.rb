@@ -32,6 +32,10 @@ class Story < ActiveRecord::Base
   scope :bookmarked, lambda {
     where('read_later_at is not null')
   }
+  scope :unbookmarked, lambda {
+    where('read_later_at is null')
+  }
+
   scope :unread, lambda {
     where('last_opened_at is null')
   }

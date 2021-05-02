@@ -18,20 +18,25 @@ class StoryResource < ApplicationResource
     model.base(current_user)
   end
 
-  filter :unread, :string do
+  filter :unread, :string, single: true, only: [:eq] do
     eq do |scope, value|
       scope.unread
     end
   end
 
-  filter :bookmarked, :string do
+  filter :bookmarked, :string, single: true, only: [:eq] do
     eq do |scope, value|
-      scope.bookmarked
+      logger.debug("StoryResource bookmarked #{value.inspect}")
+      if value=="true"
+        scope.bookmarked
+      else
+        scope.unbookmarked
+      end
     end
   end
 
   def update(attributes)
-    Rails.logger.warn(attributes)
+    logger.debug("StoryResource update #{attributes}")
     story = self.class.find(id: attributes.delete(:id)).data
     so=StoryOpen.story_of_user(story, current_user)
 
