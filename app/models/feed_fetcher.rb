@@ -47,7 +47,7 @@ class FeedFetcher
   def entries
     @entries ||= raw_feed.entries.map do |raw_entry|
       Story.new(
-        title: raw_entry.title,
+        title: CGI.unescapeHTML(raw_entry.title),
         permalink: raw_entry.link,
         entry_id: (raw_entry.guid || raw_entry.id),
         body: (raw_entry.description || raw_entry.summary),
