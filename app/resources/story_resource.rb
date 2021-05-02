@@ -35,12 +35,12 @@ class StoryResource < ApplicationResource
     story = self.class.find(id: attributes.delete(:id)).data
     so=StoryOpen.story_of_user(story, current_user)
 
-    if attributes[:last_opened_at]
+    if attributes.has_key?(:last_opened_at)
       story.last_opened_at=attributes[:last_opened_at]
       attributes.delete(:last_opened_at) ? so.open! : so.unopen!
     end
 
-    if attributes[:read_later_at]
+    if attributes.has_key?(:read_later_at)
       story.read_later_at=attributes[:read_later_at]
       attributes.delete(:read_later_at) ? so.read_later! : so.unread_later!
     end
