@@ -21,6 +21,9 @@ class FeedFetcher
     end
     feed.success!
     new_s
+
+  rescue
+    feed.fail!
   end
 
   def fetch

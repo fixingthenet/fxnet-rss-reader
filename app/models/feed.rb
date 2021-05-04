@@ -29,10 +29,6 @@ class Feed < ActiveRecord::Base
     save!
   end
 
-  def status!(status_name)
-
-  end
-
   #this is called by a script (delayed to be run in the background)
   def fetch
     fetcher=FeedFetcher.new(self)
@@ -44,12 +40,18 @@ class Feed < ActiveRecord::Base
     self.last_success_at=Time.now
     self.last_failed_count=0
     self.last_success_count = (self.last_success_count || 0) + 1
+    self.status = FeedStatus.green
     self.save!
   end
   def fail!
     self.last_failed_at=Time.now
     self.last_success_count=0
     self.last_failed_count = (self.last_failed_count || 0) + 1
+    if last_failed_count < 3
+      self.status = FeedStatus.yellow
+    else
+      self.status = FeedStatus.red
+    end
     self.save!
   end
 end
