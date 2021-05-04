@@ -9,6 +9,6 @@
 #  user_id    :bigint
 #
 class FeedSubscription < ApplicationRecord
-  belongs_to :feed
+  belongs_to :feed, counter_cache: true
   belongs_to :user
 end

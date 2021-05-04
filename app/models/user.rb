@@ -9,4 +9,5 @@
 
 class User < ActiveRecord::Base
   has_one :open_id, class_name: 'Oidc::OpenId'
+  has_many :feed_subscriptions, dependent: :destroy
 end

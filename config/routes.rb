@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   scope path: ApplicationResource.endpoint_namespace, defaults: { format: :jsonapi } do
     resources :app_configurations, only: [:show]
     resources :feeds
-    resources :feed_statuses
+    resources :feed_subscriptions, only: [:create,:destroy]
+#    resources :feed_statuses, only: [:show, :index]
     resources :stories
   end
 end

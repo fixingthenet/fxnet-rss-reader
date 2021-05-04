@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_30_190311) do
+ActiveRecord::Schema.define(version: 2021_05_04_095001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 2021_04_30_190311) do
     t.integer "last_success_count"
     t.integer "last_failed_count"
     t.datetime "last_failed_at"
+    t.integer "feed_subscribers_count", default: 0
     t.index ["url"], name: "index_feeds_on_url", unique: true
   end
 
@@ -107,7 +108,7 @@ ActiveRecord::Schema.define(version: 2021_04_30_190311) do
     t.index ["permalink", "feed_id"], name: "index_stories_on_permalink_and_feed_id", unique: true
   end
 
-  create_table "user_opens", force: :cascade do |t|
+  create_table "story_opens", id: :bigint, default: -> { "nextval('user_opens_id_seq'::regclass)" }, force: :cascade do |t|
     t.datetime "last_opened_at"
     t.datetime "read_later_at"
     t.integer "user_id", null: false
@@ -123,6 +124,6 @@ ActiveRecord::Schema.define(version: 2021_04_30_190311) do
 
   add_foreign_key "feeds", "feed_status"
   add_foreign_key "stories", "feeds"
-  add_foreign_key "user_opens", "stories"
-  add_foreign_key "user_opens", "users"
+  add_foreign_key "story_opens", "stories"
+  add_foreign_key "story_opens", "users"
 end

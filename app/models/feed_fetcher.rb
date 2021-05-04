@@ -58,6 +58,8 @@ class FeedFetcher
   end
 
   def modified?
+    return true unless @feed.last_fetched_at
+
     time =  raw_feed.pubDate rescue raw_feed.updated
     time > @feed.last_fetched_at
   end

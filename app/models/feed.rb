@@ -19,7 +19,7 @@ class Feed < ActiveRecord::Base
   has_many :stories, :dependent => :destroy
   belongs_to :feed_status
   belongs_to :status, :class_name => 'FeedStatus', :foreign_key => 'feed_status_id'
-
+  attr_accessor :user_subscription #for the resource
   def latest_entry_id
     stories.last.try(:entry_id)
   end
@@ -39,7 +39,7 @@ class Feed < ActiveRecord::Base
     inserted=fetcher.run
     logger.info("Feed: #{name} new stories: #{inserted}")
   end
-  
+
   def success!
     self.last_success_at=Time.now
     self.last_failed_count=0
