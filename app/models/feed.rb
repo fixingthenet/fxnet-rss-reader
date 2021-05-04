@@ -19,7 +19,11 @@ class Feed < ActiveRecord::Base
   has_many :stories, :dependent => :destroy
   belongs_to :feed_status
   belongs_to :status, :class_name => 'FeedStatus', :foreign_key => 'feed_status_id'
+
+  has_many :feed_subscriptions
   attr_accessor :user_subscription #for the resource
+
+
   def latest_entry_id
     stories.last.try(:entry_id)
   end

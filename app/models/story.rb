@@ -26,7 +26,8 @@ class Story < ActiveRecord::Base
     .select('stories.*, story_opens.last_opened_at as last_opened_at, story_opens.read_later_at as read_later_at')
     .order("id desc")
     .left_outer_joins(:story_opens)
-    .where(["story_opens.user_id=? or story_opens.user_id is null",the_user.id])
+    .joins(feed: :feed_subscriptions)
+    .where(["story_opens.user_id=? or story_opens.user_id is null and feed_subscriptions.user_id=?",the_user.id, the_user.id])
   }
 
   scope :bookmarked, lambda {
