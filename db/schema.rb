@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_04_095001) do
+ActiveRecord::Schema.define(version: 2021_05_06_162741) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,7 +62,9 @@ ActiveRecord::Schema.define(version: 2021_05_04_095001) do
     t.integer "last_success_count"
     t.integer "last_failed_count"
     t.datetime "last_failed_at"
-    t.integer "feed_subscribers_count", default: 0
+    t.integer "feed_subscriptions_count", default: 0
+    t.datetime "paused_at"
+    t.index ["paused_at"], name: "index_feeds_on_paused_at"
     t.index ["url"], name: "index_feeds_on_url", unique: true
   end
 

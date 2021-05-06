@@ -23,7 +23,10 @@ class Feed < ActiveRecord::Base
   has_many :feed_subscriptions
   attr_accessor :user_subscription #for the resource
 
-
+  scope :unpaused, -> {
+    where(paused_at: nil)
+  }
+  
   def latest_entry_id
     stories.last.try(:entry_id)
   end

@@ -12,6 +12,8 @@ class FeedResource < ApplicationResource
   attribute :last_failed_at, :datetime, only: [:readable]
   attribute :feed_subscriptions_count, :integer, only: [:readable]
 
+  attribute :paused_at, :datetime
+  
   belongs_to :feed_status
 
   has_one :user_subscription, resource: FeedSubscriptionResource do

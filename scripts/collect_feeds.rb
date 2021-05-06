@@ -1,6 +1,5 @@
 #!/code/bin/rails
 
-Feed.find_each do |feed|
+Feed.unpaused.find_each do |feed|
   feed.delay.fetch
 end
-  
