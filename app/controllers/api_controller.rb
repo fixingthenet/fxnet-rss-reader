@@ -18,7 +18,7 @@ class ApiController < ActionController::API
     valid=id_token.aud==provider.identifier &&
           id_token.iss==provider.issuer &&
           id_token.sub.present? &&
-          Time.at(id_token.iat) > 7.days.ago # we don't use exp as google only issues 1h idToken
+          Time.at(id_token.iat) > 1.days.ago # we don't use exp as google only issues 1h idToken
     logger.debug("IdToken: #{id_token_string} #{@@config.jwks.inspect} valid:#{valid}")
 
     if valid

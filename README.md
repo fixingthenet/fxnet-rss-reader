@@ -9,3 +9,8 @@ provider=Oidc::Provider.manual_register(identifier: "app's identifier",
            issuer: "https://auth.dev.fixingthe.net", name: 'fxnet-auth')
 ```
 
+in your IdP you have to register the callbackurl:
+```
+'/oidc/callback'
+
+```
