@@ -12,6 +12,8 @@ class StoryResource < ApplicationResource
   attribute :read_later_at, :datetime, only: [:readable, :writable]
   attribute :last_opened_at, :datetime, only: [:readable, :writable]
 
+  attribute :search, :string, only: [:filterable]
+  
   belongs_to :feed
 
   def base_scope
@@ -34,7 +36,11 @@ class StoryResource < ApplicationResource
       end
     end
   end
-
+  filter :search, :string, single: true, only: [:eq] do
+    match do |scope, value|
+      scope.where(["title ilike ? or body ilike ?", "%#{value}%", "%#{value}%"])
+    end
+  end
   def update(attributes)
     logger.debug("StoryResource update #{attributes}")
     story = self.class.find(id: attributes.delete(:id)).data
