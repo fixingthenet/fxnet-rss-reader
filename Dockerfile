@@ -1,4 +1,4 @@
-FROM ruby:2.6.3
+FROM ruby:2.6.8-bullseye
 ENV LANG=C.UTF-8
 ENV LANGUAGE=en_US:en
 ENV LC_ALL=C.UTF-8

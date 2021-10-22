@@ -50,16 +50,18 @@ class FeedFetcher
   def entries
     @entries ||= raw_feed.entries.map do |raw_entry|
       Story.new(
-        title: CGI.unescapeHTML(raw_entry.title),
+        title: unescape(raw_entry.title),
         permalink: raw_entry.link,
         entry_id: (raw_entry.guid || raw_entry.id),
-        body: (raw_entry.description || raw_entry.summary),
+        body: unescape(raw_entry.description || raw_entry.summary),
         published: (raw_entry.pubDate || raw_entry.updated),
         feed: @feed
       )
     end
   end
-
+  def unescape(str)
+    CGI.unescapeHTML(str)
+  end
   def modified?
     return true unless @feed.last_fetched_at
 
